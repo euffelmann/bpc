@@ -16,7 +16,7 @@ The following files and tools will need to be downloaded:
 
 The BPC function takes four inputs:
 
--   **pgs_liab**: a single individual's PGS (or a vector of PGSs) on the liability scale based on the posterior mean betas from a Bayesian PGS method. While in theory any Bayesian PGS method that is well-calibrated for continuous traits can be used, we have only evaluated PRScs and SBayesR.
+-   **pgs_liab**: A single individual's PGS (or a vector of PGSs) on the liability scale based on the posterior mean betas from a Bayesian PGS method. While in theory any Bayesian PGS method that is well-calibrated for continuous traits can be used, we have only evaluated PRScs and SBayesR.
 
     -   PRScs: Use the effective sample size (neff) of the GWAS training sample as input. Using a PGS for schizophrenia as an example (population prevalence = 0.01), transform the PGS from the observed scale with 50% case ascertainment (because neff was used as input in PRScs) to the liability scale with the following code:
 
