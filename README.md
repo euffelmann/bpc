@@ -20,7 +20,7 @@ The BPC function takes four inputs:
 
 -   **pgs_liab**: A single individual's PGS (or a vector of PGSs) on the liability scale based on the posterior mean betas from a Bayesian PGS method. While in theory any Bayesian PGS method that is well-calibrated for continuous traits can be used, we have only evaluated PRScs and SBayesR.
 
-    -   PRScs: Use the effective sample size (`neff = 4 / ((1 / n_cases) + (1 / n_controls`))) of the GWAS training sample as input to compute posterior mean betas. After calculating the PGSs with plink1.9, transform them from the observed scale with 50% case ascertainment to the liability scale. Example code:
+    -   PRScs: Use the effective sample size (`neff = 4 / ((1 / n_cases) + (1 / n_controls))`) of the GWAS training sample as input to compute posterior mean betas. After calculating the PGSs with plink1.9, transform them from the observed scale with 50% case ascertainment to the liability scale. Example code:
 
         ```         
         ## calculate PGSs with plink based on default PRScs output and 
@@ -61,7 +61,7 @@ The BPC function takes four inputs:
           --score <SBayesR output filename> 2 5 8 sum center \
           --out pgs_obs
 
-        ## transform PGSs from observed scale to liability scale
+        ## transform PGSs from the observed to the liability scale
         ## R code:
         library(data.table)
         source(h2o_to_h2l.R)
@@ -73,7 +73,7 @@ The BPC function takes four inputs:
 
 -   **P**: The prior disorder probability. This can be interpreted as the proportion of cases in a (hypothetical) testing sample.
 
--   **r2l**: The explained variance (*R*<sup>2</sup>) on the liability scale. In the BPC approach, the variance of a well-calibrated PGS in a population reference sample (e.g. 1000 Genomes) is used to estimate *R*<sup>2</sup><sub>liability</sub>. Simply use **the same** posterior mean betas from PRScs or SBayesR to calculate PGSs in 1000 Genomes, then transform the PGSs from the observed to the liability scale, and compute the variance of the PGSs to estimate *R*<sup>2</sup><sub>liability</sub>. Example code with K = 0.01:
+-   **r2l**: The explained variance (*R*<sup>2</sup>) on the liability scale. In the BPC approach, the variance of a well-calibrated PGS in a population reference sample (e.g. 1000 Genomes) is used to estimate *R*<sup>2</sup><sub>liability</sub>. Simply use **the same** posterior mean betas as used above to calculate PGSs in 1000 Genomes, then transform the PGSs from the observed to the liability scale, and compute the variance of the PGSs to estimate *R*<sup>2</sup><sub>liability</sub>. Example code with K = 0.01:
 
     ```         
     ## transform PGSs from the observed to the liability scale in 1000 Genomes
@@ -83,7 +83,7 @@ The BPC function takes four inputs:
     r2l = var(pgs_1000g_liab)
     ```
 
-After preparing the input, the BPC function can be applied as follows to compute the predicted disorder probabilities (with a population prevalence of 0.01 and a prior disorder probability of 0.5):
+After preparing the input, the BPC function can be applied as follows to compute the predicted disorder probabilities (for a population prevalence of 0.01 and a prior disorder probability of 0.5):
 
 ```         
 ## R code:
