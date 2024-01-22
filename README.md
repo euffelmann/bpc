@@ -1,6 +1,6 @@
 # BPC
 
-The Bayesian polygenic score Probability Conversion (BPC) approach transforms Bayesian polygenic scores (PGSs) into predicted disorder probabilities. The BPC approach is described in the following paper: [TBA].
+The Bayesian polygenic score Probability Conversion (BPC) approach transforms Bayesian polygenic scores (PGSs) into predicted disorder probabilities. The BPC approach is described in the following preprint: https://www.medrxiv.org/content/10.1101/2024.01.12.24301157v1.
 
 ### Getting Started
 
@@ -20,7 +20,7 @@ The BPC function takes four inputs:
 
 -   **pgs_liab**: A single individual's PGS (or a vector of PGSs) on the liability scale based on the posterior mean betas from a Bayesian PGS method. While in theory any Bayesian PGS method that is well-calibrated for continuous traits can be used, we have only evaluated PRScs and SBayesR.
 
-    -   PRScs: Use the effective sample size (`neff = 4 / ((1 / n_cases) + (1 / n_controls))`) of the GWAS training sample as input to compute posterior mean betas. After calculating the PGSs with plink1.9, transform them from the observed scale with 50% case ascertainment to the liability scale. Example code:
+    -   PRScs: Use the effective sample size (`neff = 4 / ((1 / n_cases) + (1 / n_controls))`) of the GWAS training sample as input to compute posterior mean betas. If the GWAS was based on multiple cohorts, use the sum of all cohorts' effective sample sizes (see Grotzinger et al. (2023) Biological Psychiatry, https://doi.org/10.1016/j.biopsych.2022.05.029). After calculating the PGSs with plink1.9, transform them from the observed scale with 50% case ascertainment (because neff is used as input to PRScs) to the liability scale. Example code:
 
         ```         
         ## calculate PGSs with plink based on default PRScs output and 
@@ -90,3 +90,5 @@ After preparing the input, the BPC function can be applied as follows to compute
 source(bpc.R)
 pred_prob <- bpc(pgs_liab = pgs_liab, K = 0.01, P = 0.5, r2l = r2l)
 ```
+
+We note that the prior for a random individual from the full population would be equal to the population prevalence, e.g. 0.01 for schizophrenia, but the prior for a help-seeking individual in a clinical setting will be substantially higher. Furthermore, the BPC approach has only been tested in individuals of European ancestry. Ancestry mismatches between the GWAS training sample and the individual for whom the BPC is computed may negatively impact its calibration.

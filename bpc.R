@@ -1,10 +1,10 @@
-bpc <- function(pgs_liab, K, Pt, r2l) {
+bpc <- function(pgs_liab, K, prior, r2l) {
   ## Bayesian polygenic score Probability Conversion (BPC) approach.
   ## See README.md for a tutorial on how to apply this function.
   
   ## pgs_liab - PGS (or vector of PGS values) on the liability scale.
   ## K        - Disease prevalence in the population.
-  ## Pt       - Sample prevalence in the testing sample.
+  ## prior    - Sample prevalence in the (hypothetical) testing sample.
   ##            (prior disease probability)
   ## r2l      - R^2 of PGS on the liability scale.
 
@@ -23,7 +23,7 @@ bpc <- function(pgs_liab, K, Pt, r2l) {
   d_case <- dnorm(pgs_liab, mean = mean_pgs_case, sd = sqrt(var_pgs_case)) 
   d_control <- dnorm(pgs_liab, mean = mean_pgs_control, sd = sqrt(var_pgs_control))
   
-  pred_prob <- {Pt * d_case} / {Pt * d_case + (1-Pt) * d_control} 
+  pred_prob <- {prior * d_case} / {prior * d_case + (1-prior) * d_control} 
     
   return(pred_prob)
 }
