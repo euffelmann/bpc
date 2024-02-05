@@ -47,3 +47,7 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# scripts & data
+toy_data.R
+calibration_functions.R

@@ -6,7 +6,7 @@ The Bayesian polygenic score Probability Conversion (BPC) approach transforms Ba
 
 The following files and tools will need to be downloaded:
 
--   The `bpc.R` and `h2o_to_h2l.R` files. Alternatively you can clone this whole repository using the following git command: `git clone https://github.com/euffelmann/bpc.git`
+-   The `bpc.R` and `h2o_to_h2l.R` files. Alternatively you can clone this whole repository using the following git command: `git clone https://github.com/euffelmann/bpc.git`. `toy_data.profile` contains simulated Polygenic Scores (PGS) in plink format. 
 
 -   1000 Genomes population reference files (from e.g. <https://ctg.cncr.nl/software/magma>)
 
@@ -30,13 +30,13 @@ The BPC function takes four inputs:
           --bfile <filename> \ 
           --read-freq g1000_eur.frq \ # can be computed with 'plink1.9 --freq'
           --score <PRScs output filename> 2 4 6 sum center \
-          --out pgs_obs
+          --out toy_data
 
         ## transform PGSs from the observed to the liability scale
         ## R code:
         library(data.table)
-        source(h2o_to_h2l.R)
-        pgs_obs <- fread("pgs_obs.profile", header = TRUE)
+        source("h2o_to_h2l.R")
+        pgs_obs <- fread("toy_data.profile", header = TRUE)
         # for a disorder with a population prevalence of 0.01. adjust K accordingly
         pgs_liab <- pgs_obs$SCORESUM * sqrt(h2o_to_h2l(K = 0.01))
         ```
@@ -59,13 +59,13 @@ The BPC function takes four inputs:
           --bfile <filename> \ 
           --read-freq g1000_eur.frq \ # can be computed with 'plink1.9 --freq'
           --score <SBayesR output filename> 2 5 8 sum center \
-          --out pgs_obs
+          --out toy_data
 
         ## transform PGSs from the observed to the liability scale
         ## R code:
         library(data.table)
         source(h2o_to_h2l.R)
-        pgs_obs <- fread("pgs_obs.profile", header = TRUE)
+        pgs_obs <- fread("toy_testdata.profile", header = TRUE)
         pgs_liab <- pgs_obs$SCORESUM * sqrt(h2o_to_h2l(K = 0.01))
         ```
 
@@ -78,17 +78,24 @@ The BPC function takes four inputs:
     ```         
     ## transform PGSs from the observed to the liability scale in 1000 Genomes
     ## R code:
-    pgs_1000g_liab <- pgs_1000g_obs$SCORESUM * sqrt(h2o_to_h2l(K = 0.01))
+    pgs_ref_obs <- fread("toy_refdata.profile", header = TRUE)
+    pgs_ref_liab <- pgs_ref_obs$SCORESUM * sqrt(h2o_to_h2l(K = 0.01))
 
-    r2l = var(pgs_1000g_liab)
+    r2l = var(pgs_ref_liab)
     ```
 
 After preparing the input, the BPC function can be applied as follows to compute the predicted disorder probabilities (for a population prevalence of 0.01 and a prior disorder probability of 0.5):
 
 ```         
 ## R code:
-source(bpc.R)
+source("bpc.R")
 pred_prob <- bpc(pgs_liab = pgs_liab, K = 0.01, prior = 0.5, r2l = r2l)
 ```
+
+The output is a vector of predicted disorder probabilities for the individual(s) for whom the PGSs were computed.
+```{r}
+head(pred_prob)
+```
+
 
 We note that the prior for a random individual from the full population would be equal to the population prevalence, e.g. 0.01 for schizophrenia, but the prior for a help-seeking individual in a clinical setting will be substantially higher. Furthermore, the BPC approach has only been tested in individuals of European ancestry. Ancestry mismatches between the GWAS training sample and the individual for whom the BPC is computed may negatively impact its calibration.
