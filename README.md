@@ -25,12 +25,12 @@ The BPC function takes four inputs:
         ```         
         ## calculate PGSs with plink based on default PRScs output and 
         ## 1000 Genomes allele frequencies to shift all scores to mean zero
-        ## command line:
+        ## command line (example code, the output is provided in toy_data/):
         plink1.9 \ 
           --bfile <filename> \ 
           --read-freq g1000_eur.frq \ # can be computed with 'plink1.9 --freq'
           --score <PRScs output filename> 2 4 6 sum center \
-          --out toy_data
+          --out toy_data/toy_testdata
 
         ## transform PGSs from the observed to the liability scale
         ## R code:
@@ -54,12 +54,12 @@ The BPC function takes four inputs:
         ```         
         ## compute PGSs with plink based on default SBayesR output and 
         ## 1000 Genomes allele frequencies to shift all scores to mean zero
-        ## command line:
+        ## command line (example code, the output is provided in toy_data/):
         plink1.9 \ 
           --bfile <filename> \ 
           --read-freq g1000_eur.frq \ # can be computed with 'plink1.9 --freq'
           --score <SBayesR output filename> 2 5 8 sum center \
-          --out toy_data
+          --out toy_data/toy_testdata
 
         ## transform PGSs from the observed to the liability scale
         ## R code:
