@@ -96,3 +96,7 @@ The output is a vector of predicted disorder probabilities for the individual(s)
 
 
 We note that the prior for a random individual from the full population would be equal to the population prevalence, e.g. 0.01 for schizophrenia, but the prior for a help-seeking individual in a clinical setting will be substantially higher. Furthermore, the BPC approach has only been tested in individuals of European ancestry. Ancestry mismatches between the GWAS training sample and the individual for whom the BPC is computed may negatively impact its calibration.
+
+#### Depencies
+
+The R and package versions used can be found in the `renv.lock` file.
