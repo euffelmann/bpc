@@ -6,7 +6,7 @@ The Bayesian polygenic score Probability Conversion (BPC) approach transforms Ba
 
 The following files and tools will need to be downloaded:
 
--   The `bpc.R` and `h2o_to_h2l.R` files. Alternatively you can clone this whole repository using the following git command: `git clone https://github.com/euffelmann/bpc.git`. `toy_data.profile` contains simulated Polygenic Scores (PGS) in plink format. 
+-   The `bpc.R` and `h2o_to_h2l.R` files. Alternatively you can clone this whole repository using the following git command: `git clone https://github.com/euffelmann/bpc.git`. `toy_data/` contains simulated Polygenic Scores (PGSs) in plink format to test the functions. 
 
 -   1000 Genomes population reference files (from e.g. <https://ctg.cncr.nl/software/magma>)
 
@@ -18,7 +18,7 @@ The following files and tools will need to be downloaded:
 
 The BPC function takes four inputs:
 
--   **pgs_liab**: A single individual's PGS (or a vector of PGSs) on the liability scale based on the posterior mean betas from a Bayesian PGS method. While in theory any Bayesian PGS method that is well-calibrated for continuous traits can be used, we have only evaluated PRScs and SBayesR.
+-   **pgs_liab**: A single individual's PGS (or a vector of PGSs for several individuals) on the liability scale based on the posterior mean betas from a Bayesian PGS method. While in theory any Bayesian PGS method that is well-calibrated for continuous traits can be used, we have only evaluated PRScs and SBayesR.
 
     -   PRScs: Use the effective sample size (`neff = 4 / ((1 / n_cases) + (1 / n_controls))`) of the GWAS training sample as input to compute posterior mean betas. If the GWAS was based on multiple cohorts, use the sum of all cohorts' effective sample sizes (see Grotzinger et al. (2023) Biological Psychiatry, https://doi.org/10.1016/j.biopsych.2022.05.029). After calculating the PGSs with plink1.9, transform them from the observed scale with 50% case ascertainment (because neff is used as input to PRScs) to the liability scale. Example code:
 
