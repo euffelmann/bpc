@@ -36,7 +36,7 @@ The BPC function takes four inputs:
         ## R code:
         library(data.table)
         source("h2o_to_h2l.R")
-        pgs_obs <- fread("toy_data.profile", header = TRUE)
+        pgs_obs <- fread("toy_data/toy_data.profile", header = TRUE)
         # for a disorder with a population prevalence of 0.01. adjust K accordingly
         pgs_liab <- pgs_obs$SCORESUM * sqrt(h2o_to_h2l(K = 0.01))
         ```
@@ -65,7 +65,7 @@ The BPC function takes four inputs:
         ## R code:
         library(data.table)
         source(h2o_to_h2l.R)
-        pgs_obs <- fread("toy_testdata.profile", header = TRUE)
+        pgs_obs <- fread("toy_data/toy_testdata.profile", header = TRUE)
         pgs_liab <- pgs_obs$SCORESUM * sqrt(h2o_to_h2l(K = 0.01))
         ```
 
@@ -78,7 +78,7 @@ The BPC function takes four inputs:
     ```         
     ## transform PGSs from the observed to the liability scale in 1000 Genomes
     ## R code:
-    pgs_ref_obs <- fread("toy_refdata.profile", header = TRUE)
+    pgs_ref_obs <- fread("toy_data/toy_refdata.profile", header = TRUE)
     pgs_ref_liab <- pgs_ref_obs$SCORESUM * sqrt(h2o_to_h2l(K = 0.01))
 
     r2l = var(pgs_ref_liab)
@@ -92,10 +92,8 @@ source("bpc.R")
 pred_prob <- bpc(pgs_liab = pgs_liab, K = 0.01, prior = 0.5, r2l = r2l)
 ```
 
-The output is a vector of predicted disorder probabilities for the individual(s) for whom the PGSs were computed.
-```{r}
-head(pred_prob)
-```
+The output is a vector of predicted disorder probabilities for the individual(s) for whom the PGSs were computed. See toy_data/toy_pred_prob.txt for the exptected output (PHENO = case control status, pred_prob = predicted disorder probabilities).
+
 
 
 We note that the prior for a random individual from the full population would be equal to the population prevalence, e.g. 0.01 for schizophrenia, but the prior for a help-seeking individual in a clinical setting will be substantially higher. Furthermore, the BPC approach has only been tested in individuals of European ancestry. Ancestry mismatches between the GWAS training sample and the individual for whom the BPC is computed may negatively impact its calibration.

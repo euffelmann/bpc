@@ -49,5 +49,5 @@ po/*~
 rsconnect/
 
 # scripts & data
-toy_data.R
+toy_data/toy_data.R
 calibration_functions.R
