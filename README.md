@@ -14,6 +14,8 @@ The following files and tools will need to be downloaded:
 
 -   plink1.9 to compute PGSs (<https://www.cog-genomics.org/plink/>)
 
+**Nota Bene:** It is important to use the same set of SNPs in the testing cohort, the PGS model (i.e., the training sample/summary statistics), and the population reference sample. Otherwise, PGS prediction can be negatively impacted.
+
 ### Applying the BPC function
 
 The BPC function takes four inputs:
