@@ -73,7 +73,7 @@ The BPC function takes four inputs:
 
 -   **K**: The population prevalence of the disorder of interest (e.g. 0.01 for schizophrenia)
 
--   **P**: The prior disorder probability. This can be interpreted as the proportion of cases in a (hypothetical) testing sample.
+-   **P**: The prior disorder probability. This can be interpreted as the proportion of cases in a (hypothetical) testing sample. The prior can be based on literature (e.g., age-dependent prevalence estimates), a small reference sample (no genotype data required), or prior elicitation. See the preprint for more information.
 
 -   **r2l**: The explained variance (*R*<sup>2</sup>) on the liability scale. In the BPC approach, the variance of a well-calibrated PGS in a population reference sample (e.g. 1000 Genomes) is used to estimate *R*<sup>2</sup><sub>liability</sub>. Simply use **the same** posterior mean betas as used above to calculate PGSs in 1000 Genomes, then transform the PGSs from the observed to the liability scale, and compute the variance of the PGSs to estimate *R*<sup>2</sup><sub>liability</sub>. Example code with K = 0.01:
 
