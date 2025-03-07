@@ -17,7 +17,7 @@ bpc <- function(pgs_liab, K, prior, r2l) {
   i0 <- -z / (1 - K) # mean liability in controls
   k0 <- i0 * (i0 - t) # reduction in variance in controls
   mean_pgs_control <- i0 * r2l # use the known relationship between the liability and pgs
-  var_pgs_control <- r2l - k0 * r2l * r2l # Thalis' rule
+  var_pgs_control <- r2l - k0 * r2l * r2l # Tallis' rule
   
   # height of the normal distribution at t
   d_case <- dnorm(pgs_liab, mean = mean_pgs_case, sd = sqrt(var_pgs_case)) 
