@@ -22,7 +22,7 @@ The BPC function takes four inputs:
 
 -   **pgs_liab**: A single individual's PGS (or a vector of PGSs for several individuals) on the liability scale based on the posterior mean betas from a Bayesian PGS method. While in theory any Bayesian PGS method that is well-calibrated for continuous traits can be used, we have only evaluated PRScs and SBayesR.
 
-    -   PRScs: Use the effective sample size (`neff = 4 / ((1 / n_cases) + (1 / n_controls))`) of the GWAS training sample as input to compute posterior mean betas. If the GWAS was based on multiple cohorts, use the sum of all cohorts' effective sample sizes (see Grotzinger et al. (2023) Biological Psychiatry, https://doi.org/10.1016/j.biopsych.2022.05.029). After calculating the PGSs with plink1.9, transform them from the observed scale with 50% case ascertainment (because neff is used as input to PRScs) to the liability scale. Example code:
+    -   PRScs: Use the effective sample size (`neff = 4 / ((1 / n_cases) + (1 / n_controls))`) and betas (on the log-odds scale) of the GWAS training sample as input to compute posterior mean betas. If the GWAS was based on multiple cohorts, use the sum of all cohorts' effective sample sizes (see Grotzinger et al. (2023) Biological Psychiatry, https://doi.org/10.1016/j.biopsych.2022.05.029). After calculating the PGSs with plink1.9, transform them from the observed scale with 50% case ascertainment (because neff is used as input to PRScs) to the liability scale. Example code:
 
         ```         
         ## calculate PGSs with plink based on default PRScs output and 
@@ -43,7 +43,7 @@ The BPC function takes four inputs:
         pgs_liab <- pgs_obs$SCORESUM * sqrt(h2o_to_h2l(K = 0.01))
         ```
 
-    -   SBayesR: To achieve well-calibrated PGSs, the GWAS betas and standard errors need to be transformed to the standardized observed scale with 50% case ascertainment first before SBayesR can be used.
+    -   SBayesR: To achieve well-calibrated PGSs, the GWAS betas (on the log-odds scale) and standard errors need to be transformed to the standardized observed scale with 50% case ascertainment first before SBayesR can be used.
 
         ```         
         ## R code:         
