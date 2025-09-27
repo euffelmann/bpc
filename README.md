@@ -1,6 +1,6 @@
 # BPC
 
-The Bayesian polygenic score Probability Conversion (BPC) approach transforms Bayesian polygenic scores (PGSs) into predicted disorder probabilities. The BPC approach is described in the following preprint: https://www.medrxiv.org/content/10.1101/2024.01.12.24301157v1.
+The Bayesian polygenic score Probability Conversion (BPC) approach transforms Bayesian polygenic scores (PGSs) into predicted disorder probabilities. The BPC approach is described in the following paper: https://rdcu.be/eIjvC.
 
 ### Getting Started
 
